@@ -135,7 +135,10 @@ theorem memℒp [IsFiniteMeasureOnCompacts μ] (p : ENNReal) : Memℒp f p μ :=
 
 /-- Bounded compactly supported functions are integrable. -/
 theorem integrable [IsFiniteMeasureOnCompacts μ] : Integrable f μ :=
-  memℒp_one_iff_integrable.mp <| memℒp hf 1
+  -- memℒp_one_iff_integrable.mp <| memℒp hf 1
+  by
+  have : Memℒp f 1 μ := hf.memℒp 1
+  exact memLp_one_iff_integrable.mp this
 
 theorem mul_bdd_right (hg : IsBounded (range g)) (h2g : StronglyMeasurable g) :
     BoundedCompactSupport (f * g) where

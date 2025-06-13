@@ -34,7 +34,7 @@ theorem exceptional_set_carleson {f : ℝ → ℂ}
   have h_periodic : h.Periodic (2 * π) := periodic_f₀.sub periodic_f
   have h_bound : ∀ x, ‖h x‖ ≤ ε' := by
     intro x
-    simp only [hdef, Pi.sub_apply, Complex.norm_eq_abs]
+    simp only [hdef, Pi.sub_apply]
     rw [← Complex.dist_eq, dist_comm, Complex.dist_eq]
     exact hf₀ x
 

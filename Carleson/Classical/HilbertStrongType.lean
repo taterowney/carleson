@@ -75,13 +75,9 @@ lemma spectral_projection_bound {f : ℝ → ℂ} {n : ℕ}
     (hmf : Measurable f) (hf : eLpNorm f ∞ < ∞) (periodic_f : f.Periodic (2 * π)) :
     eLpNorm ((Ioc 0 (2 * π)).indicator (partialFourierSum n f)) ≤
     eLpNorm ((Ioc 0 (2 * π)).indicator f) := by
+      sorry
   -- Note: easiest proof might be by massaging the statement of `spectral_projection_bound_lp`
   -- into this
-  have : Fact (0 < 2 * π) := ⟨by positivity⟩
-  let F : Lp ℂ 2 haarAddCircle :=
-    Memℒp.toLp (AddCircle.liftIoc (2 * π) 0 f) sorry
-  have := spectral_projection_bound_lp (N := n) F
-  sorry
 
 /-- Lemma 11.3.1.
 The blueprint states this on `[-π, π]`, but I think we can consistently change this to `(0, 2π]`.

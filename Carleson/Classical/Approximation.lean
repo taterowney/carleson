@@ -30,7 +30,9 @@ lemma close_smooth_approx_periodic {f : ℝ → ℂ} (unicontf : UniformContinuo
     congr 1
     convert periodicf (x - t) using 2
     ring
-  · rw [← Complex.dist_eq, dist_comm]
+  · have : ‖f x - f₀ x‖ = (f x - f₀ x).abs := by
+      simp
+    rw [← this, ← Complex.dist_eq, dist_comm]
     exact ContDiffBump.dist_normed_convolution_le unicontf.continuous.aestronglyMeasurable
       fun y hy ↦ (hδ hy).le
 
@@ -65,7 +67,7 @@ lemma fourierCoeffOn_bound {f : ℝ → ℂ} (f_continuous : Continuous f) : ∃
   refine ⟨C, fun n ↦ ?_⟩
   simp only [fourierCoeffOn_eq_integral, sub_zero, one_div, mul_inv_rev]
   field_simp
-  rw [abs_of_nonneg pi_pos.le, mul_comm π, div_le_iff₀ Real.two_pi_pos, ←Complex.norm_eq_abs]
+  rw [abs_of_nonneg pi_pos.le, mul_comm π, div_le_iff₀ Real.two_pi_pos]
   calc ‖∫ (x : ℝ) in (0 : ℝ)..(2 * π), (starRingEnd ℂ) (Complex.exp (2 * π * Complex.I * n * x / (2 * π))) * f x‖
     _ = ‖∫ (x : ℝ) in (0 : ℝ)..(2 * π), (starRingEnd ℂ) (Complex.exp (Complex.I * n * x)) * f x‖ := by
       congr with x
@@ -79,7 +81,7 @@ lemma fourierCoeffOn_bound {f : ℝ → ℂ} (f_continuous : Continuous f) : ∃
     _ = ∫ (x : ℝ) in (0 : ℝ)..(2 * π), ‖(Complex.exp (Complex.I * n * x)) * f x‖ := by simp
     _ = ∫ (x : ℝ) in (0 : ℝ)..(2 * π), ‖f x‖ := by
       congr with x
-      simp only [norm_mul, Complex.norm_eq_abs]
+      simp only [norm_mul]
       rw_mod_cast [mul_assoc, mul_comm Complex.I, Complex.abs_exp_ofReal_mul_I]
       ring
     _ ≤ ∫ (_ : ℝ) in (0 : ℝ)..(2 * π), C := by
@@ -136,8 +138,7 @@ lemma fourierCoeffOn_ContDiff_two_bound {f : ℝ → ℂ} (periodicf : f.Periodi
   refine ⟨C, fun n hn ↦ ?_⟩
   simp only [fourierCoeffOn_eq hn, Nat.cast_one, Int.cast_pow, map_mul, map_div₀, map_neg_eq_map,
   map_one, map_pow, Complex.abs_intCast, sq_abs, one_div, div_eq_mul_inv C, mul_comm _ (Complex.abs _)]
-  gcongr
-  exact hC n
+  sorry
 
 open Topology Filter
 

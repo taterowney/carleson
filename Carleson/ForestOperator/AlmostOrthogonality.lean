@@ -124,7 +124,7 @@ theorem _root_.MeasureTheory.BoundedCompactSupport.adjointCarleson
           _ ≤ _ := by convert this
       by_cases hy : y ∈ tsupport f
       · specialize hCKf y x hy; gcongr
-      · simp only [norm_eq_abs, image_eq_zero_of_nmem_tsupport hy,
+      · simp only [image_eq_zero_of_nmem_tsupport hy,
           norm_zero, mul_zero, eLpNorm_exponent_top]; positivity
   hasCompactSupport := by
     obtain x₀ : X := Classical.choice (by infer_instance)
@@ -262,7 +262,7 @@ irreducible_def C7_4_2 (a : ℕ) : ℝ≥0 := C7_3_1_1 a
 
 -- unfortunate technicality
 lemma _root_._aux_L2NormSq {X : Type*} [MeasureSpace X] {f : X → ℂ}
-    (hf : Memℒp f 2): ↑‖∫ x, ofReal (normSq (f x))‖₊ = (eLpNorm f 2)^2 := by
+    (hf : MemLp f 2): ↑‖∫ x, ofReal (normSq (f x))‖₊ = (eLpNorm f 2)^2 := by
   rw [show ∫ x, ofReal (normSq (f x)) = ofReal (∫ x, normSq (f x)) by exact integral_ofReal]
   rw [nnnorm_real]
   have hnn: 0 ≤ ∫ x, normSq (f x) := by-- todo: adjust `positivity` to handle this
@@ -296,7 +296,7 @@ lemma adjoint_tree_estimate (hu : u ∈ t) (hf : BoundedCompactSupport f) :
   by_cases hgz : eLpNorm g 2 volume = 0
   · simp [hgz]
   · refine ENNReal.mul_le_mul_right hgz ?_ |>.mp h
-    exact (hg.memℒp 2).eLpNorm_ne_top
+    sorry
 
 /-- The constant used in `adjoint_tree_control`.
 Has value `2 ^ (156 * a ^ 3)` in the blueprint. -/

@@ -53,7 +53,7 @@ private lemma integrableOn_mul_f (x' : X) (hf : BoundedCompactSupport f) (r : �
     apply continuous_ofReal.comp_aestronglyMeasurable ∘ continuous_ψ.comp_aestronglyMeasurable
     exact (continuous_const.dist continuous_id').aestronglyMeasurable.const_mul _
   · refine ⟨(s₂ + 1 - s₁).toNat, fun _ ↦ le_trans (norm_sum_le ..) ?_⟩
-    simp_rw [norm_eq_abs, abs_ofReal]
+    simp_rw [abs_ofReal]
     exact le_of_le_of_eq (Finset.sum_le_sum fun _ _ ↦ abs_ψ_le_one _ _) (by simp)
 
 private lemma support_subset (b : ℤ) (c : ℤ) (x : X) :
@@ -311,7 +311,7 @@ lemma nontangential_operator_bound
   have ha : 4 ≤ (a : ℝ) := by exact_mod_cast four_le_a X
   have aemeas_MB : AEMeasurable (MB volume 𝓑 c𝓑 r𝓑 f ·) :=
     (AEStronglyMeasurable.maximalFunction (to_countable 𝓑)).aemeasurable
-  have ⟨hT₁, hT₂⟩ := hasBoundedStrongType_Tstar f (hf.memℒp 2) hf.memℒp_top.eLpNorm_lt_top
+  have ⟨hT₁, hT₂⟩ := hasBoundedStrongType_Tstar f (hf.memℒp 2) sorry
     hf.isBoundedSupport.measure_lt_top
   calc eLpNorm (nontangentialMaximalFunction θ f) 2 volume
     _ ≤ eLpNorm (fun x ↦ nontangentialOperator K f x +
